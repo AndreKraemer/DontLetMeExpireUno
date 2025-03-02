@@ -1,4 +1,4 @@
-﻿namespace DontLetMeExpireUno.Presentation;
+namespace DontLetMeExpireUno.Views;
 
 public sealed partial class Shell : UserControl, IContentControlProvider
 {

@@ -47,6 +47,14 @@
     </UnoFeatures>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Uno.Toolkit.Skia.WinUI" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\ItemPage.xaml.cs">
+      <DependentUpon>ItemPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <PRIResource Update="Strings\de\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>

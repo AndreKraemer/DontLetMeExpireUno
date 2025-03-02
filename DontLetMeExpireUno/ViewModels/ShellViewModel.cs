@@ -1,4 +1,4 @@
-namespace DontLetMeExpireUno.Presentation;
+namespace DontLetMeExpireUno.ViewModels;
 
 public class ShellViewModel
 {
