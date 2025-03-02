@@ -1,4 +1,4 @@
-<Page x:Class="DontLetMeExpireUno.Views.ItemPage"
+﻿<Page x:Class="DontLetMeExpireUno.Views.ItemPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DontLetMeExpireUno.Views"
@@ -30,19 +30,16 @@
                     <TextBlock Text="Tippe hier, um ein Bild hinzuzufügen"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Spacing="8" Margin="16">
-                    <TextBlock Text="Name"/>
-                    <TextBox />
+                    <TextBlock Text="Name" />
+                    <TextBox Text="{Binding Path=Name, Mode=TwoWay}"/>
                     <TextBlock Margin="0,8,0,0" Text="Lagerort"/>
-                    <ComboBox HorizontalAlignment="Stretch">
-                        <ComboBoxItem>Gefrierschrank</ComboBoxItem>
-                        <ComboBoxItem>Kühlschrank</ComboBoxItem>
-                        <ComboBoxItem>Vorratsschrank</ComboBoxItem>
-                    </ComboBox>
+                    <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Path=StorageLocations, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedLocation}" DisplayMemberPath="Name"/>
                     <TextBlock Margin="0,8,0,0" Text="Verfallsdatum"/>
-                    <CalendarDatePicker/>
+                    <CalendarDatePicker Date="{Binding Path=ExpirationDate, Mode=TwoWay}"/>
                     <TextBlock Margin="0,8,0,0" Text="Menge" />
-                    <TextBox InputScope="Number" />
-                    <Button Margin="0,8,0,0" Content="Speichern" />
+                    <NumberBox Value="{Binding Path=Amount, Mode=TwoWay}" SpinButtonPlacementMode="Inline"/>
+                    <Button Margin="0,8,0,0" Content="Speichern"  Command="{Binding SaveCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>
