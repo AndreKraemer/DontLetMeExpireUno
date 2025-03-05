@@ -1,3 +1,4 @@
+using DontLetMeExpireUno.Services;
 using Uno.Resizetizer;
 
 namespace DontLetMeExpireUno;
@@ -79,6 +80,8 @@ public partial class App : Application
                 {
                     // TODO: Register your services
                     //services.AddSingleton<IMyService, MyService>();
+                    services.AddSingleton<IItemService, DummyItemService>();
+                    services.AddSingleton<IStorageLocationService, DummyStorageLocationService>();
                 })
                 .UseNavigation(RegisterRoutes)
             );

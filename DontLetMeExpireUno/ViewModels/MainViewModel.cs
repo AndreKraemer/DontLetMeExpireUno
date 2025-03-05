@@ -5,7 +5,7 @@ namespace DontLetMeExpireUno.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private INavigator _navigator;
-    private readonly DummyItemService _itemService = new();
+    private readonly IItemService _itemService;
 
     [ObservableProperty]
     private int _stockCount;
@@ -22,12 +22,14 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel(
         IStringLocalizer localizer,
         IOptions<AppConfig> appInfo,
-        INavigator navigator)
+        INavigator navigator,
+        IItemService itemService)
     {
         _navigator = navigator;
         Title = "Main";
         Title += $" - {localizer["ApplicationName"]}";
         Title += $" - {appInfo?.Value?.Environment}";
+        _itemService = itemService;
     }
     public string? Title { get; }
 

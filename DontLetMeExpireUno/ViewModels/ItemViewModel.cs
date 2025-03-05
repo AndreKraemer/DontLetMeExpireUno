@@ -5,8 +5,8 @@ namespace DontLetMeExpireUno.ViewModels;
 
 public partial class ItemViewModel: ObservableObject
 {
-    private readonly DummyStorageLocationService _storageLocationService = new();
-    private readonly DummyItemService _itemService = new();
+    private readonly IStorageLocationService _storageLocationService;
+    private readonly IItemService _itemService;
     private readonly INavigator _navigator;
     private readonly Entity _entity;
 
@@ -30,10 +30,13 @@ public partial class ItemViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
     private string _image;
 
-    public ItemViewModel(INavigator navigator, Entity entity)
+    public ItemViewModel(INavigator navigator, Entity entity, 
+                         IItemService itemService, IStorageLocationService storageLocationService)
     { 
         _navigator = navigator;
         _entity = entity;
+        _itemService = itemService;
+        _storageLocationService = storageLocationService;
     }
 
 

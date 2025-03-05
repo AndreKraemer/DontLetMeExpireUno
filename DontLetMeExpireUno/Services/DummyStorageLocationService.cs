@@ -2,7 +2,7 @@ using DontLetMeExpireUno.Models;
 
 namespace DontLetMeExpireUno.Services;
 
-public class DummyStorageLocationService
+public class DummyStorageLocationService : IStorageLocationService
 {
     private readonly DummyItemService _itemService;
     private readonly List<StorageLocation> _storageLocations = [];
