@@ -8,6 +8,7 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+    <PackageVersion Include="CommunityToolkit.WinUI.Converters" Version="8.1.240916" />
     <PackageVersion Include="Uno.Toolkit.Skia.WinUI" Version="6.4.3" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,10 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using DontLetMeExpireUno.Services;
 
 namespace DontLetMeExpireUno.ViewModels;
 
-public partial class ItemViewModel: ObservableObject
+public partial class ItemViewModel: ObservableValidator
 {
     private readonly IStorageLocationService _storageLocationService;
     private readonly IItemService _itemService;
@@ -12,6 +13,9 @@ public partial class ItemViewModel: ObservableObject
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyDataErrorInfo]
+    [Required]
+    [Length(5, 50)]
     private string _name;
 
     [ObservableProperty]
@@ -24,11 +28,31 @@ public partial class ItemViewModel: ObservableObject
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyDataErrorInfo]
+    [Range(1, 10000)]
     private decimal _amount;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
     private string _image;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(PropertyErrorMessages))]
+    [NotifyPropertyChangedFor(nameof(isValid))]
+    IEnumerable<ValidationResult> _errors = [];
+
+    public Dictionary<string, string> PropertyErrorMessages
+    {
+        get
+        {
+            return _errors.ToDictionary(
+                pair => pair.MemberNames.FirstOrDefault(),
+                pair => pair.ErrorMessage
+            );
+        }
+    }
+
+    public bool isValid => !Errors.Any();
 
     public ItemViewModel(INavigator navigator, Entity entity, 
                          IItemService itemService, IStorageLocationService storageLocationService)
@@ -67,6 +91,14 @@ public partial class ItemViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsync()
     {
+        ClearErrors();
+        ValidateAllProperties();
+        Errors = GetErrors();
+        if(!isValid)
+        {
+            return;
+        }
+
         // Neues Element mit den
         // Daten des ViewModels erstellen
         var item = new Item
@@ -92,7 +124,8 @@ public partial class ItemViewModel: ObservableObject
 
     private bool CanSave()
     {
-        return !string.IsNullOrEmpty(Name)
-          && Amount > 0;
+        return true;
+            // !string.IsNullOrEmpty(Name)
+          //&& Amount > 0;
     }
 }
